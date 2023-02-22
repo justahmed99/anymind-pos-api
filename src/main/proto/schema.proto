@@ -21,11 +21,17 @@ message PaymentResponse {
   int32 points = 2;
 }
 
+message SalesResponse {
+  string datetime = 1;
+  string sales = 2;
+  int32 points = 3;
+}
+
 service PaymentService {
   // unary -synchronous
   rpc calculateFinalPayment(PaymentRequest) returns(PaymentResponse){}
   // server-streaming asynchronous
-
+  rpc listOfSalesPerHour(PaymentRequest) returns(stream SalesResponse){}
   // client-streaming asynchronous
   // bi-directional streaming asynchronous
 }
