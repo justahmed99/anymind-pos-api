@@ -1,11 +1,13 @@
 package com.anymind.pos.domain.entity
 
-import java.util.Date
+import java.time.OffsetDateTime
 
 class Payment {
+    var id: String? = null
     var price: Double? = null
+    var finalPrice: Double? = null
     var priceModifier: Double? = null
-    var paymentMethod: String? = null
-    var points: Int? = null
-    var datetime: Date? = null
+    var paymentMethod: PaymentMethod? = null
+    var point: Int? = null
+    var datetime: OffsetDateTime? = null
 }

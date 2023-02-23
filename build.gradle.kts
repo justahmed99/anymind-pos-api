@@ -43,6 +43,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     implementation("org.postgresql:postgresql:42.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
 
 //	implementation("io.github.lognet:grpc-spring-boot-starter:3.4.3")
 }
