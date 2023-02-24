@@ -27,11 +27,16 @@ message SalesResponse {
   int32 points = 3;
 }
 
+message SalesResponseList {
+  repeated SalesResponse sales = 1;
+}
+
 service PaymentService {
   // unary -synchronous
   rpc calculateFinalPayment(PaymentRequest) returns(PaymentResponse){}
   // server-streaming asynchronous
-  rpc listOfSalesPerHour(PaymentRequest) returns(stream SalesResponse){}
+  //  rpc listOfSalesPerHour(PaymentRequest) returns(stream SalesResponse){}
+  rpc listOfSalesPerHour(PaymentListRequest) returns(SalesResponseList){}
   // client-streaming asynchronous
   // bi-directional streaming asynchronous
 }

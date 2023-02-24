@@ -1,8 +1,10 @@
 package com.anymind.pos.adaper.output.persistence.postgresql.converter
 
 import com.anymind.pos.adaper.output.persistence.postgresql.data.PaymentPostgre
+import com.anymind.pos.adaper.output.persistence.postgresql.data.SalesSummaryPostgre
 import com.anymind.pos.domain.entity.Payment
 import com.anymind.pos.domain.entity.PaymentMethod
+import com.anymind.pos.domain.entity.Sales
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -30,5 +32,13 @@ class PersistenceConverter {
         paymentEntity.paymentMethod = PaymentMethod.valueOf(paymentPostgre.paymentMethod!!)
 
         return paymentEntity
+    }
+
+    fun convertSalesSummaryPostgreToSalesEntity(salesSummaryPostgre: SalesSummaryPostgre): Sales {
+        val sales = Sales()
+        sales.datetime = salesSummaryPostgre.hour
+        sales.sales = salesSummaryPostgre.totalPrice
+        sales.points = salesSummaryPostgre.totalPoint
+        return sales
     }
 }

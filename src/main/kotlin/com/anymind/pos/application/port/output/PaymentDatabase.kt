@@ -1,10 +1,11 @@
 package com.anymind.pos.application.port.output
 
 import com.anymind.pos.domain.entity.Payment
-import java.util.Date
+import com.anymind.pos.domain.entity.Sales
+import java.time.OffsetDateTime
 
 interface PaymentDatabase {
     fun save(payment: Payment): Payment
     fun findAll(): List<Payment>
-    fun getPaymentPerDate(startDateTime: Date, endDateTime: Date): List<Payment>
+    fun getPaymentPerHour(startDateTime: OffsetDateTime, endDateTime: OffsetDateTime): List<Sales>
 }
