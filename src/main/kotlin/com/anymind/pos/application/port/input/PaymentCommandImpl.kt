@@ -14,11 +14,6 @@ class PaymentCommandImpl(
     @Autowired private val database: PaymentDatabase,
     @Autowired private val service: PaymentService
 ) : PaymentCommand {
-//    @Autowired
-//    private val database: PaymentDatabase? = null
-//
-//    @Autowired
-//    private val service: PaymentService? = null
 
     override fun savePayment(payment: Payment): Payment? {
         payment.finalPrice = service.countFinalPrice(payment)
@@ -27,7 +22,6 @@ class PaymentCommandImpl(
     }
 
     override fun getBetweenStartDateAndEndDate(startDateTime: OffsetDateTime, endDateTime: OffsetDateTime): List<Sales> {
-//        return database.getPaymentPerHour(startDateTime, endDateTime)
         return database.getPaymentPerHour(startDateTime, endDateTime)
     }
 }
