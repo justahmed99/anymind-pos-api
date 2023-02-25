@@ -32,11 +32,6 @@ message SalesResponseList {
 }
 
 service PaymentService {
-  // unary -synchronous
   rpc calculateFinalPayment(PaymentRequest) returns(PaymentResponse){}
-  // server-streaming asynchronous
-  //  rpc listOfSalesPerHour(PaymentRequest) returns(stream SalesResponse){}
   rpc listOfSalesPerHour(PaymentListRequest) returns(SalesResponseList){}
-  // client-streaming asynchronous
-  // bi-directional streaming asynchronous
 }

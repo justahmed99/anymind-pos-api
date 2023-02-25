@@ -20,16 +20,14 @@ class PaymentGrpcAdapter(
     override suspend fun calculateFinalPayment(request: PaymentRequest): PaymentResponse {
         try {
             val requestValidation = validator.validatePaymentGrpcRequest(request)
-            if(!requestValidation.first)
-                throw IllegalArgumentException(requestValidation.second)
+            if (!requestValidation.first)
+                throw Status.INVALID_ARGUMENT.withDescription("Error processing request")
+                    .augmentDescription("${requestValidation.second}").asRuntimeException()
             val payment = paymentCommand.savePayment(converter.convertPaymentGrpcToPaymentEntity(request))
             return converter.convertPaymentEntityToPaymentResponse(payment!!)
         } catch (e: Exception) {
-//            throw Status.INTERNAL.withDescription(e.message).asRuntimeException()
-            val json = ObjectMapper().writeValueAsString(e.message)
-            throw Status.INTERNAL.withDescription(json).asRuntimeException()
-//            return PaymentResponse.newBuilder()
-//                .setStatus
+            throw Status.INTERNAL.withCause(e)
+                .augmentDescription("Error Details: ${e.message}").asRuntimeException()
         }
     }
 
@@ -42,7 +40,8 @@ class PaymentGrpcAdapter(
                 .newBuilder()
                 .addAllSales(salesResponseList).build()
         } catch (e: Exception) {
-            throw Status.INTERNAL.withDescription(e.message).asRuntimeException()
+            throw Status.INTERNAL.withCause(e)
+                .augmentDescription("Error Details: ${e.message}").asRuntimeException()
         }
 
     }
