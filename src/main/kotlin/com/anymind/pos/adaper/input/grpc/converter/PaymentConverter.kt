@@ -18,9 +18,12 @@ class PaymentConverter {
     fun convertPaymentGrpcToPaymentEntity(paymentGrpcObj: PaymentRequest): Payment {
         val paymentEntity = Payment()
         paymentEntity.price = paymentGrpcObj.price.toDouble()
-        paymentEntity.priceModifier = paymentGrpcObj.priceModifier
         paymentEntity.paymentMethod = PaymentMethod.valueOf(paymentGrpcObj.paymentMethod)
-        paymentEntity.datetime = OffsetDateTime.parse(paymentGrpcObj.datetime, DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneOffset.UTC))
+        paymentEntity.priceModifier = paymentGrpcObj.priceModifier
+        paymentEntity.datetime = OffsetDateTime.parse(
+            paymentGrpcObj.datetime,
+            DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneOffset.UTC)
+        )
         return paymentEntity
     }
 
