@@ -1,4 +1,4 @@
-package com.anymind.pos.output
+package com.anymind.pos.adapter.output
 
 import com.anymind.pos.adaper.output.persistence.postgresql.mapper.ResultQueryMapper
 import org.junit.jupiter.api.Assertions

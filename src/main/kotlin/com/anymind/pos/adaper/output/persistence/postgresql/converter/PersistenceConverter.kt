@@ -12,9 +12,10 @@ import java.util.UUID
 class PersistenceConverter {
     fun convertPaymentEntityToPaymentPostgre(paymentEntity: Payment): PaymentPostgre {
         val paymentPostgre = PaymentPostgre()
-        paymentPostgre.id = UUID.randomUUID().toString()
+        paymentPostgre.id = paymentEntity.id
         paymentPostgre.price = paymentEntity.price
         paymentPostgre.finalPrice = paymentEntity.finalPrice
+        paymentPostgre.priceModifier = paymentEntity.priceModifier
         paymentPostgre.point = paymentEntity.point
         paymentPostgre.datetime = paymentEntity.datetime
         paymentPostgre.paymentMethod = paymentEntity.paymentMethod?.name
@@ -29,6 +30,7 @@ class PersistenceConverter {
         paymentEntity.finalPrice = paymentPostgre.finalPrice
         paymentEntity.point = paymentPostgre.point
         paymentEntity.datetime = paymentPostgre.datetime
+        paymentEntity.priceModifier = paymentPostgre.priceModifier
         paymentEntity.paymentMethod = PaymentMethod.valueOf(paymentPostgre.paymentMethod!!)
 
         return paymentEntity

@@ -15,6 +15,7 @@ class PaymentPostgre {
     var price: Double? = null
     var finalPrice: Double? = null
     var paymentMethod: String? = null
+    var priceModifier: Double? = null
     var point: Int? = null
     var datetime: OffsetDateTime? = null
 }

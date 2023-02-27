@@ -23,8 +23,8 @@ class PaymentConverterTest {
         paymentEntity.price = 100.00
         paymentEntity.paymentMethod = PaymentMethod.MASTERCARD
         paymentEntity.priceModifier = 0.95
-//        paymentEntity.finalPrice = 95.00
-//        paymentEntity.point = 5
+        paymentEntity.finalPrice = 95.00
+        paymentEntity.point = 5
         paymentEntity.datetime = OffsetDateTime.parse("2022-09-01T00:00:00Z")
 
         paymentRequest = PaymentRequest.newBuilder()

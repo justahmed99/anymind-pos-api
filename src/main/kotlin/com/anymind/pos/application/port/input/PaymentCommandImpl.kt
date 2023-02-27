@@ -8,6 +8,7 @@ import com.anymind.pos.domain.service.PaymentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
+import java.util.*
 
 @Service
 class PaymentCommandImpl(
@@ -18,6 +19,7 @@ class PaymentCommandImpl(
     override fun savePayment(payment: Payment): Payment? {
         payment.finalPrice = service.countFinalPrice(payment)
         payment.point = service.countPoint(payment)
+        payment.id = UUID.randomUUID().toString()
         return database.save(payment)
     }
 

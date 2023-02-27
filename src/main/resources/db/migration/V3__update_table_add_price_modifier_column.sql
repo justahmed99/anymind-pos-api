@@ -1,0 +1,1 @@
+ALTER TABLE "public"."payment" ADD COLUMN price_modifier FLOAT(2);

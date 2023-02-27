@@ -12,6 +12,7 @@ plugins {
     kotlin("plugin.spring") version "1.6.21"
     id("com.google.protobuf") version "0.8.17"
     id("org.flywaydb.flyway") version "7.8.2"
+    jacoco
 }
 
 group = "com.anymind"
@@ -74,12 +75,6 @@ protobuf {
         }
     }
 
-//    sourceSets {
-//        create("proto") {
-//            srcDir("src/main/proto")
-//        }
-//    }
-
     generateProtoTasks {
         ofSourceSet("main").forEach { task ->
             task.builtins {
@@ -98,6 +93,26 @@ protobuf {
 
 tasks.named("build").configure {
     dependsOn("generateProto")
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+    reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
 }
 
 flyway {

@@ -33,7 +33,5 @@ class PaymentPostgreAdapter(
         return mapper.mapCustomQuerySalesSummary(repository.findSalesGroupHourly(startDateTime, endDateTime))
             .stream()
             .map { converter.convertSalesSummaryPostgreToSalesEntity(it) }.toList()
-//        return repository?.findBetweenStartDateAndEndate(startDateTime, endDateTime)
-//            ?.stream()?.map { converter!!.convertPaymentPostgreToPaymentEntity(it) }?.toList() ?: emptyList()
     }
 }

@@ -1,13 +1,16 @@
-package com.anymind.pos.output
+package com.anymind.pos.adapter.output
 
 import com.anymind.pos.adaper.output.persistence.postgresql.converter.PersistenceConverter
 import com.anymind.pos.adaper.output.persistence.postgresql.data.PaymentPostgre
+import com.anymind.pos.adaper.output.persistence.postgresql.data.SalesSummaryPostgre
 import com.anymind.pos.domain.entity.Payment
 import com.anymind.pos.domain.entity.PaymentMethod
+import com.anymind.pos.domain.entity.Sales
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.event.annotation.BeforeTestMethod
 import java.time.OffsetDateTime
 
 @SpringBootTest
@@ -16,6 +19,9 @@ class PersistenceConverterTest {
 
     private lateinit var paymentEntity: Payment
     private lateinit var paymentPostgre: PaymentPostgre
+
+    private lateinit var sales: Sales
+    private lateinit var salesSummaryPostgre: SalesSummaryPostgre
 
     @BeforeEach
     fun setup() {
@@ -34,6 +40,17 @@ class PersistenceConverterTest {
         paymentPostgre.price = 1000.00
         paymentPostgre.finalPrice = 950.00
         paymentPostgre.datetime = OffsetDateTime.parse("2022-09-01T00:00:00Z")
+
+        salesSummaryPostgre = SalesSummaryPostgre(
+            OffsetDateTime.parse("2022-09-01T00:00:00Z"),
+            1000.00,
+            20
+        )
+
+        sales = Sales()
+        sales.datetime = OffsetDateTime.parse("2022-09-01T00:00:00Z")
+        sales.sales = 1000.00
+        sales.points = 20
     }
 
     @Test
@@ -56,5 +73,14 @@ class PersistenceConverterTest {
         Assertions.assertEquals(paymentEntity.price, data.price)
         Assertions.assertEquals(paymentEntity.finalPrice, data.finalPrice)
         Assertions.assertEquals(paymentEntity.datetime, data.datetime)
+    }
+
+    @Test
+    fun convertSalesSummaryPostgreToEntity() {
+        val data = converter.convertSalesSummaryPostgreToSalesEntity(salesSummaryPostgre)
+
+        Assertions.assertEquals(sales.datetime, data.datetime)
+        Assertions.assertEquals(sales.sales, data.sales)
+        Assertions.assertEquals(sales.points, data.points)
     }
 }
