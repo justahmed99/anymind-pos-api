@@ -17,16 +17,10 @@ class PaymentPostgreAdapter(
     @Autowired private val mapper: ResultQueryMapper
 ) : PaymentDatabase {
 
-    override fun save(payment: Payment): Payment {
+    override fun save(payment: Payment): Payment? {
         val paymentPostgre = converter.convertPaymentEntityToPaymentPostgre(payment)
         val paymentSave = repository.save(paymentPostgre)
         return converter.convertPaymentPostgreToPaymentEntity(paymentSave)
-    }
-
-    override fun findAll(): List<Payment> {
-        val paymentsPostgre = repository.findAll()
-        return paymentsPostgre.stream().map { converter.convertPaymentPostgreToPaymentEntity(it) }?.toList()
-            ?: emptyList()
     }
 
     override fun getPaymentPerHour(startDateTime: OffsetDateTime, endDateTime: OffsetDateTime): List<Sales> {

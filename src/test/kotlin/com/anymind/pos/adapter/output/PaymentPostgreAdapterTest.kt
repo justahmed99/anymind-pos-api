@@ -10,14 +10,19 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.annotation.Rollback
+import org.springframework.transaction.annotation.Transactional
 import java.time.OffsetDateTime
 import java.util.UUID
 
 @SpringBootTest
 class PaymentPostgreAdapterTest {
+
     @Autowired
     private lateinit var adapter: PaymentPostgreAdapter
 
+    @Transactional
+    @Rollback
     @Test
     fun testSave() {
         val paymentPostgre = PaymentPostgre()
@@ -43,12 +48,12 @@ class PaymentPostgreAdapterTest {
 
         val saveResult = adapter.save(payment)
 
-        Assertions.assertEquals(payment.id, saveResult.id)
-        Assertions.assertEquals(payment.paymentMethod, saveResult.paymentMethod)
-        Assertions.assertEquals(payment.price, saveResult.price)
-        Assertions.assertEquals(payment.datetime, saveResult.datetime)
-        Assertions.assertEquals(payment.finalPrice, saveResult.finalPrice)
-        Assertions.assertEquals(payment.point, saveResult.point)
+        Assertions.assertEquals(payment.id, saveResult?.id)
+        Assertions.assertEquals(payment.paymentMethod, saveResult?.paymentMethod)
+        Assertions.assertEquals(payment.price, saveResult?.price)
+        Assertions.assertEquals(payment.datetime, saveResult?.datetime)
+        Assertions.assertEquals(payment.finalPrice, saveResult?.finalPrice)
+        Assertions.assertEquals(payment.point, saveResult?.point)
     }
 
 }

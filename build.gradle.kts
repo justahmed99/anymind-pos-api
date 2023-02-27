@@ -24,30 +24,25 @@ repositories {
 }
 
 dependencies {
+    // Basic Spring Boot and another dependencies
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")
-
-	implementation("io.grpc:grpc-protobuf:${grpcVersion}")
-	implementation("io.grpc:grpc-stub:1.40.1")
-	implementation("io.grpc:grpc-kotlin-stub:1.1.0")
-	implementation("com.google.protobuf:protobuf-java:$protobufVersion")
-	implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
-
-    compileOnly("jakarta.annotation:jakarta.annotation-api:1.3.5") // Java 9+ compatibility - Do NOT update to 2.0.0
-
-    implementation("net.devh:grpc-client-spring-boot-starter:2.13.1.RELEASE")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-
     implementation("org.postgresql:postgresql:42.5.4")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-
-//	implementation("io.github.lognet:grpc-spring-boot-starter:3.4.3")
+    // gRPC dependencies
+    implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")
+    implementation("net.devh:grpc-client-spring-boot-starter:2.13.1.RELEASE")
+    implementation("io.grpc:grpc-protobuf:${grpcVersion}")
+    implementation("io.grpc:grpc-stub:1.40.1")
+    implementation("io.grpc:grpc-kotlin-stub:1.1.0")
+    implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+    implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
+    compileOnly("jakarta.annotation:jakarta.annotation-api:1.3.5") // Java 9+ compatibility - Do NOT update to 2.0.0
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 
 tasks.withType<KotlinCompile> {

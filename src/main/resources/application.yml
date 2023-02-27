@@ -13,3 +13,9 @@ spring:
             non_contextual_creation: true
     hibernate:
       ddl-auto: update
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 9090

@@ -5,7 +5,6 @@ import com.anymind.pos.domain.entity.Sales
 import java.time.OffsetDateTime
 
 interface PaymentDatabase {
-    fun save(payment: Payment): Payment
-    fun findAll(): List<Payment>
+    fun save(payment: Payment): Payment?
     fun getPaymentPerHour(startDateTime: OffsetDateTime, endDateTime: OffsetDateTime): List<Sales>
 }
