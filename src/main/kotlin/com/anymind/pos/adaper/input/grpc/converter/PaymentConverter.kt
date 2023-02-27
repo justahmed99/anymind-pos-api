@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Component
 class PaymentConverter {
@@ -31,7 +30,7 @@ class PaymentConverter {
         return PaymentResponse
             .newBuilder()
             .setPoints(paymentEntity.point!!)
-            .setFinalPrice(paymentEntity.finalPrice.toString())
+            .setFinalPrice(String.format("%.2f", paymentEntity.finalPrice))
             .build()
     }
 
@@ -39,7 +38,7 @@ class PaymentConverter {
         return SalesResponse
             .newBuilder()
             .setDatetime(salesEntity.datetime.toString())
-            .setSales(salesEntity.sales.toString())
+            .setSales(String.format("%.2f", salesEntity.sales))
             .setPoints(salesEntity.points!!)
             .build()
     }
